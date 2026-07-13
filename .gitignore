@@ -1,0 +1,21 @@
+# Виртуальное окружение
+.venv/
+venv/
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+
+# Файлы IDE
+.vscode/
+.idea/
+
+# Логи
+*.log
+
+# Переменные окружения
+.env
+
+# Системные файлы Windows
+Thumbs.db
+Desktop.ini
