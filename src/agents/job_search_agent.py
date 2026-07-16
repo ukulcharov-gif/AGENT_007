@@ -1,4 +1,6 @@
 from src.utils.config_manager import ConfigManager
+from src.parsers.fake_parser import FakeParser
+from models.vacancy_manager import VacancyManager
 
 
 class JobSearchAgent:
@@ -23,3 +25,33 @@ class JobSearchAgent:
         print(f"Профессия : {profession}")
         print(f"Страна    : {country}")
         print(f"Ключевые  : {keywords}")
+
+        # Сохраняем параметры поиска
+        config.save_search({
+            "profession": profession,
+            "country": country,
+            "keywords": keywords
+})
+
+        print("\nПоиск сохранен.")
+
+        # Получаем тестовые вакансии
+        print("\nПоиск тестовых вакансий...")
+
+        parser = FakeParser()
+        vacancies = parser.get_vacancies()
+
+        # Создаем менеджер вакансий
+        manager = VacancyManager()
+
+        # Добавляем вакансии в менеджер
+        for vacancy in vacancies:
+            manager.add_vacancy(vacancy)
+
+        # Выводим найденные вакансии
+        print("\nНайденные вакансии:\n")
+        manager.show_all()
+
+        manager.save_to_json()
+
+        print("\nВакансии сохранены.")
