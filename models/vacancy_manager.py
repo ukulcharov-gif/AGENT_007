@@ -32,7 +32,7 @@ class VacancyManager:
                 "city": vacancy.city,
                 "salary": vacancy.salary,
                 "link": vacancy.link
-        })
+            })
 
         with open(path, "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
@@ -64,10 +64,75 @@ class VacancyManager:
 
         print(f"Загружено вакансий: {len(self.vacancies)}")
 
+    def find_by_country(self, country):
+
+        result = []
+
+        for vacancy in self.vacancies:
+            if vacancy.country.lower() == country.lower():
+                result.append(vacancy)
+
+        return result
+
+    def find_by_company(self, company):
+
+        result = []
+
+        for vacancy in self.vacancies:
+            if vacancy.company.lower() == company.lower():
+                result.append(vacancy)
+
+        return result
+
+    def find_by_keyword(self, keyword):
+
+        result = []
+
+        for vacancy in self.vacancies:
+            if keyword.lower() in vacancy.title.lower():
+                result.append(vacancy)
+
+        return result
+    
+    def sort_by_salary(self):
+
+        return sorted(
+            self.vacancies,
+            key=lambda vacancy: int(
+                ''.join(filter(str.isdigit, vacancy.salary))
+            ),
+            reverse=True
+        )
+
+    def top_n(self, count):
+
+        return self.sort_by_salary()[:count]
+
+    def find_by_salary(self, min_salary):
+
+        result = []
+
+        for vacancy in self.vacancies:
+
+            salary = int(
+                ''.join(filter(str.isdigit, vacancy.salary))
+            )
+
+            if salary >= min_salary:
+                result.append(vacancy)
+
+        return result
+
+
 if __name__ == "__main__":
 
     manager = VacancyManager()
 
     manager.load_from_json()
 
-    manager.show_all()
+    print("\nВакансии из Германии:\n")
+
+    print("\nТОП-2 вакансии по зарплате:\n")
+
+for vacancy in manager.top_n(2):
+    vacancy.show()

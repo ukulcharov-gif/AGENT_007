@@ -1,7 +1,8 @@
 from models.vacancy import Vacancy
+from src.parsers.base_parser import BaseParser
 
 
-class FakeParser:
+class FakeParser(BaseParser):
 
     def get_vacancies(self):
 
