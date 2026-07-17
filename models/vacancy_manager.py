@@ -38,5 +38,36 @@ class VacancyManager:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
     def load_from_json(self, filename="data/vacancies/vacancies.json"):
-        # Здесь будет настоящий код
-        pass
+
+        path = Path(filename)
+
+        if not path.exists():
+            print("Файл не найден.")
+            return
+
+        with open(path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        self.vacancies = []
+
+        for item in data:
+            vacancy = Vacancy(
+                title=item["title"],
+                company=item["company"],
+                country=item["country"],
+                city=item["city"],
+                salary=item["salary"],
+                link=item["link"]
+            )
+
+            self.vacancies.append(vacancy)
+
+        print(f"Загружено вакансий: {len(self.vacancies)}")
+
+if __name__ == "__main__":
+
+    manager = VacancyManager()
+
+    manager.load_from_json()
+
+    manager.show_all()
