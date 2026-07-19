@@ -1,5 +1,5 @@
 from src.utils.config_manager import ConfigManager
-from src.parsers.fake_parser import FakeParser
+from src.parsers.json_placeholder_parser import JsonPlaceholderParser
 from models.vacancy_manager import VacancyManager
 
 
@@ -38,8 +38,8 @@ class JobSearchAgent:
         # Получаем тестовые вакансии
         print("\nПоиск тестовых вакансий...")
 
-        parser = FakeParser()
-        vacancies = parser.get_vacancies()
+        parser = JsonPlaceholderParser()
+        vacancies = parser.get_vacancies()   
 
         # Создаем менеджер вакансий
         manager = VacancyManager()

@@ -134,5 +134,5 @@ if __name__ == "__main__":
 
     print("\nТОП-2 вакансии по зарплате:\n")
 
-for vacancy in manager.top_n(2):
-    vacancy.show()
+    for vacancy in manager.top_n(2):
+        vacancy.show()
